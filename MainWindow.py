@@ -24,14 +24,18 @@ class MainWindow(QMainWindow):
     def clicked(self):
         self.data = cv2.imread('Camera_mount.png')[..., ::-1]
         self.qimage = qimage2ndarray.array2qimage(self.data)
-        self.image_1.setPixmap(QtGui.QPixmap(self.qimage).scaled(self.image_1.size(), PyQt5.QtCore.Qt.KeepAspectRatio, PyQt5.QtCore.Qt.SmoothTransformation))
+        self.setImage()
 
     def binarise(self):
         self.grey = cv2.cvtColor(self.data, cv2.COLOR_RGB2GRAY)
+        self.qimage = qimage2ndarray.array2qimage(self.grey)
+        self.setImage()
 
     def resizeEvent(self, event):
         QMainWindow.resizeEvent(self, event)
+        self.setImage()
 
+    def setImage(self):
         if hasattr(self, 'qimage'):
             self.image_1.setPixmap(QtGui.QPixmap(self.qimage).scaled(self.image_1.size(), PyQt5.QtCore.Qt.KeepAspectRatio, PyQt5.QtCore.Qt.SmoothTransformation))
 
