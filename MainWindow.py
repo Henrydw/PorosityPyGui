@@ -12,12 +12,12 @@ import qimage2ndarray
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
+        # Load .ui file
         uic.loadUi("MainWindow.ui", self)
-        # self.ui.show()
         self.initUI()
 
     def initUI(self):
-        # Link button to a function
+        # Set up signals
         self.button_1.clicked.connect(self.clicked)
         self.button_2.clicked.connect(self.binarise)
 
@@ -28,7 +28,8 @@ class MainWindow(QMainWindow):
 
     def binarise(self):
         self.grey = cv2.cvtColor(self.data, cv2.COLOR_RGB2GRAY)
-        self.qimage = qimage2ndarray.array2qimage(self.grey)
+        _, self.binImg = cv2.threshold(self.grey, 150, 255, cv2.THRESH_BINARY)
+        self.qimage = qimage2ndarray.array2qimage(self.binImg)
         self.setImage()
 
     def resizeEvent(self, event):
