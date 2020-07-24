@@ -10,6 +10,8 @@ import qimage2ndarray
 
 from Porosity import findSectionMask
 
+import pyqtgraph as pg
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
