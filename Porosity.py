@@ -80,10 +80,10 @@ def porosityBasic(img, mask=None, start=0, end=255):
 
     pts = np.where(mask == 1)
     lst_intensities = np.zeros_like(pts)
-    lst_intensities = res[pts[0], pts[1]]
+    lst_intensities = img[pts[0], pts[1]]
 
     porosity = np.zeros(end - start)
     for thr in range(start, end):
         porosity[thr - start] = len(lst_intensities[lst_intensities > thr]) / len(lst_intensities)
 
-    return porosity, list(range(start, end))
+    return porosity, np.array(range(start, end))
